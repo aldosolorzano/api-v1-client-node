@@ -5,7 +5,7 @@ var endpoints = {
   pushtx: new UrlPattern('/pushtx')
 }
 
-module.exports = createWithApi(API.createUsingNetwork(0, endpoints))
+module.exports = createWithApi(API.createUsingNetwork('bitcoin', endpoints))
 
 module.exports.usingNetwork = function (network) {
   return createWithApi(API.createUsingNetwork(network, endpoints))
@@ -18,7 +18,5 @@ function createWithApi (api) {
 }
 
 function pushtx (api, txHex, options) {
-  options = options || {}
-  var body = { tx: txHex, api_code: options.apiCode }
   return api.post('pushtx', {}, body)
 }

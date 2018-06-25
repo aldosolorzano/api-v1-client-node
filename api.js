@@ -24,7 +24,8 @@ API.prototype.post = function (api, options, body) {
     return request({
       method: 'POST',
       url: apiurl,
-      form: body
+      body: body,
+      json: true
     }).then(parseResponse).catch(handleError)
   } catch (err) {
     return q.reject(err)
@@ -37,10 +38,14 @@ API.createUsingNetwork = function (network, endpoints) {
 
 API.apiUrlForNetwork = function (network) {
   switch (network) {
-    case 0:
+    case 'bitcoin':
       return 'https://blockchain.info'
-    case 3:
+    case 'testnet':
       return 'https://testnet.blockchain.info'
+    case 'litecoin':
+      return 'http://litecoin.mifiel.co/api/tx/send'
+    case 'litecoin_testnet':
+      return 'http://litecoin-testnet.mifiel.co/api/tx/send'
     default:
       throw new Error('Invalid network: ' + network)
   }
